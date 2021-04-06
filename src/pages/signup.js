@@ -6,6 +6,8 @@ import {
     FormHelperText,
     FormLabel,
     Input,
+    InputGroup,
+    InputLeftAddon,
     Text,
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
@@ -13,15 +15,17 @@ import Link from "next/link";
 import * as yup from "yup";
 import { Logo } from "../components";
 import firebase from "../config/firebase";
+
 const validationSchema = yup.object().shape({
     email: yup
         .string()
         .email("Email inválido")
         .required("Preenchimento obrigatório"),
     password: yup.string().required("Preenchimento obrigatório"),
+    username: yup.string().required("Preenchimento obrigatório"),
 });
 
-export default function SignIn() {
+export default function Home() {
     const {
         values,
         errors,
@@ -35,7 +39,10 @@ export default function SignIn() {
             try {
                 const user = await firebase
                     .auth()
-                    .signInWithEmailAndPassword(values.email, values.password);
+                    .createUserWithEmailAndPassword(
+                        values.email,
+                        values.password
+                    );
                 console.log(user);
             } catch (error) {
                 console.error("ERROR:", error);
@@ -44,6 +51,7 @@ export default function SignIn() {
         validationSchema,
         initialValues: {
             email: "",
+            username: "",
             password: "",
         },
     });
@@ -85,6 +93,24 @@ export default function SignIn() {
                         </FormHelperText>
                     )}
                 </FormControl>
+
+                <FormControl p={4} id="username" isRequired>
+                    <InputGroup size="lg">
+                        <InputLeftAddon children="clocker.work/" />
+                        <Input
+                            size="lg"
+                            type="username"
+                            value={values.username}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                        />
+                    </InputGroup>
+                    {touched.username && (
+                        <FormHelperText textColor="#e74c3c">
+                            {errors.username}
+                        </FormHelperText>
+                    )}
+                </FormControl>
                 <Box p={4}>
                     <Button
                         colorScheme="blue"
@@ -92,11 +118,11 @@ export default function SignIn() {
                         isLoading={isSubmitting}
                         width="100%"
                     >
-                        Entrar
+                        Cadastrar
                     </Button>
                 </Box>
             </Box>
-            <Link href="/signup">Não tem conta? Cadastre-se aqui!</Link>
+            <Link href="/">Já tem conta? Entre aqui!</Link>
         </Container>
     );
 }

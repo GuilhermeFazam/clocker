@@ -1,13 +1,13 @@
 import firebase from "firebase/app";
-
+import "firebase/auth";
 const firebaseConfig = {
-    apiKey: "AIzaSyDOzb9aTFvrvTEmLoa5xxdWPHKc9eEaaH4",
-    authDomain: "clocker-codar.firebaseapp.com",
-    projectId: "clocker-codar",
-    storageBucket: "clocker-codar.appspot.com",
-    messagingSenderId: "739659246978",
-    appId: "1:739659246978:web:fa103c105bc6779636b39b",
-    measurementId: "G-FP0Q32RDTB",
+    apiKey: process.env.NEXT_PUBLIC_API_KEY,
+    authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
+    projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
+    storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
+    messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
+    appId: process.env.NEXT_PUBLIC_APP_ID,
+    measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID,
 };
 
 export default firebase.apps.length
