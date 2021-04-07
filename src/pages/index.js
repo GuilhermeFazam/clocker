@@ -1,7 +1,7 @@
-import { Spinner, Container } from "@chakra-ui/react";
+import { Container, Spinner } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Login, Schedule } from "../components";
-import firebase from "../config/firebase";
+import { firebaseClient } from "../config/firebase";
 
 export default function Home() {
     // const authenticatedUser = firebase.auth().currentUser;
@@ -12,7 +12,7 @@ export default function Home() {
     });
 
     useEffect(() => {
-        firebase.auth().onAuthStateChanged((user) => {
+        firebaseClient.auth().onAuthStateChanged((user) => {
             setAuth({ loading: false, user });
         });
     }, []);
@@ -24,7 +24,5 @@ export default function Home() {
             </Container>
         );
     }
-
-    // console.log(authenticatedUser);
     return auth.user ? <Schedule /> : <Login />;
 }
