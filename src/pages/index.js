@@ -12,7 +12,8 @@ import { useFormik } from "formik";
 import Link from "next/link";
 import * as yup from "yup";
 import { Logo } from "../components";
-import firebase from "../config/firebase";
+import firebase, { persistenceMode } from "../config/firebase";
+
 const validationSchema = yup.object().shape({
     email: yup
         .string()
@@ -32,6 +33,7 @@ export default function SignIn() {
         isSubmitting,
     } = useFormik({
         onSubmit: async (values, form) => {
+            firebase.auth().setPersistence(persistenceMode);
             try {
                 const user = await firebase
                     .auth()
@@ -47,6 +49,7 @@ export default function SignIn() {
             password: "",
         },
     });
+
     return (
         <Container p={4} centerContent>
             <Logo />
