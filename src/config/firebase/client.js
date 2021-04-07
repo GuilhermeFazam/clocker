@@ -1,6 +1,7 @@
-import firebase from "firebase/app";
+import firebaseClient from "firebase/app";
 import "firebase/auth";
-const firebaseConfig = {
+
+const firebaseClientConfig = {
     apiKey: process.env.NEXT_PUBLIC_API_KEY,
     authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
     projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
@@ -10,11 +11,10 @@ const firebaseConfig = {
     measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID,
 };
 
-const app = firebase.apps.length
-    ? firebase.app()
-    : firebase.initializeApp(firebaseConfig);
+const app = firebaseClient.apps.length
+    ? firebaseClient.app()
+    : firebaseClient.initializeApp(firebaseClientConfig);
 
-export const persistenceMode = firebase.auth.Auth.Persistence.LOCAL;
+export const persistenceMode = firebaseClient.auth.Auth.Persistence.LOCAL;
 
-export default app;
-// firebase.analytics();
+export { firebaseClient };

@@ -12,7 +12,7 @@ import { useFormik } from "formik";
 import Link from "next/link";
 import * as yup from "yup";
 import { Logo } from "../Logo";
-import { firebaseClient, persistenceMode } from "../../config/firebase";
+import { firebaseClient, persistenceMode } from "../../config/firebase/client";
 
 const validationSchema = yup.object().shape({
     email: yup
