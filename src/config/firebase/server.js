@@ -1,8 +1,8 @@
 import firebaseServer from "firebase-admin";
 
-const app = firebase.apps.length
-    ? firebase.app()
-    : firebase.initializeApp({
+const app = firebaseServer.apps.length
+    ? firebaseServer.app()
+    : firebaseServer.initializeApp({
           credential: firebaseServer.credential.cert({
               type: "service_account",
               auth_uri: "https://accounts.google.com/o/oauth2/auth",
@@ -17,7 +17,5 @@ const app = firebase.apps.length
               client_id: process.env.CLIENT_ID,
           }),
       });
-
-// admin.initializeApp();
 
 export { firebaseServer };
